@@ -15,7 +15,7 @@ Open the local URL Vite prints. The app renders inside a ~390px mobile frame.
 npm run build   # production build / sanity check
 ```
 
-**To click through every path:** the Home screen has a "Prototype scenarios" panel (clearly marked as review-only, not a product screen) with chips to switch the decision outcome (approved at each limit, haircut, or each of the three decline reasons) and the existing-advance repayment state (upcoming/due/late/default/on-time). There's no backend, so this is how a reviewer reaches every hard moment without re-running real underwriting.
+**To click through every path:** a "Reviewer controls" panel sits outside the phone frame (left on wide viewports, stacked above it on narrow ones) — deliberately styled as external tooling, not a product screen, so it's never mistaken for part of the NovaPay UI. It has chips to switch the decision outcome (approved at each limit, haircut, or each of the three decline reasons) and the existing-advance repayment state (upcoming/due/late/default/on-time), driving the phone frame live. There's no backend, so this is how a reviewer reaches every hard moment without re-running real underwriting.
 
 ## Read this first
 
@@ -42,7 +42,8 @@ src/
   screens/                 # Home, Offer, AmountSelect, Terms, Disbursed, Repayment
   state/AdvanceFlowContext.jsx   # navigation + application state (no backend — mocked)
   data/productRules.js, scenarios.js        # fee/haircut math + mock decision scenarios
-  App.jsx                  # mobile-frame shell + router
+  dev/ScenarioSidebar.jsx  # reviewer-only controls, rendered outside the phone frame
+  App.jsx                  # page shell (sidebar + phone frame) + router
 tailwind.config.js          # extended tokens — see docs/DESIGN_SYSTEM.md
 ```
 

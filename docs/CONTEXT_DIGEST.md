@@ -38,6 +38,6 @@ NovaPay is a *salary* advance for *salaried* users, but the schema allows `incom
 4. Over-limit is prevented at the amount-selection step (tier chips above the limit are disabled with an inline reason), never a post-submit error.
 5. Haircut triggers a re-disclosure screen with recomputed numbers and a genuine, no-penalty decline option — accepting the original offer silently at a lower amount would be a dark pattern.
 6. Fee is computed as `round(disbursed * 0.03)`, always shown as its own line, never folded into "total" without a visible breakdown.
-7. Since this is a click-through prototype with no backend, I'm adding a small **scenario switcher** on the Home screen (approved / declined / haircut / late) so a reviewer can reach every hard moment without needing real underwriting logic. This is scaffolding for the demo, not a product screen, and is marked as such in the UI.
+7. Since this is a click-through prototype with no backend, I'm adding a small **scenario switcher** (approved / declined / haircut / late) so a reviewer can reach every hard moment without needing real underwriting logic. It's rendered outside the phone frame entirely, not on any product screen, so it can't be mistaken for part of the NovaPay UI.
 
 *No blocking ambiguity remains — proceeding to benchmarking and build.*

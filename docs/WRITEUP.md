@@ -28,7 +28,7 @@ Full change-log in `docs/DESIGN_SYSTEM.md`. Highlights: added `danger`/`warning`
 4. Over-limit is prevented at the amount-selection step (disabled tiers + inline reason), never a post-submit error.
 5. A haircut triggers re-disclosure with recomputed numbers and a genuine, no-penalty way to decline — silently accepting the original offer at a lower amount would be a dark pattern.
 6. Fee = `round(disbursed × 0.03)`, always its own line item, never folded into "total" without a visible breakdown.
-7. Since there's no backend, a small "Prototype scenarios" panel on Home (clearly labeled, visually separated) lets a reviewer reach every decision/repayment state without re-running real underwriting logic.
+7. Since there's no backend, a small "Reviewer controls" sidebar (clearly labeled, rendered outside the phone frame entirely — not on any product screen) lets a reviewer reach every decision/repayment state without re-running real underwriting logic.
 
 ## 6. What I'd want to know that I don't
 

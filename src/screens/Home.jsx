@@ -1,25 +1,16 @@
 import {
   AppBar,
   Card,
-  Panel,
   ListRow,
   Button,
   AmountText,
   ReminderBanner,
-  Chip,
 } from "../novakit";
 import { useAdvanceFlow } from "../state/AdvanceFlowContext.jsx";
-import { DECISION_SCENARIOS, REPAYMENT_SCENARIOS } from "../data/scenarios.js";
+import { REPAYMENT_SCENARIOS } from "../data/scenarios.js";
 
 export default function Home() {
-  const {
-    startApplication,
-    decisionScenarioKey,
-    setDecisionScenarioKey,
-    repaymentScenarioKey,
-    setRepaymentScenarioKey,
-    viewExistingRepayment,
-  } = useAdvanceFlow();
+  const { startApplication, repaymentScenarioKey, viewExistingRepayment } = useAdvanceFlow();
 
   const hasExistingAdvance = repaymentScenarioKey !== "none";
   const existing = REPAYMENT_SCENARIOS[repaymentScenarioKey];
@@ -83,44 +74,6 @@ export default function Home() {
             trailing={<AmountText amount={500} size="body" />}
           />
         </Card>
-
-        <Panel className="bg-neutral-50">
-          <div className="text-caption font-semibold text-neutral-500 uppercase tracking-wide mb-2">
-            Prototype scenarios <span className="normal-case font-normal">— for this review only, not a product screen</span>
-          </div>
-
-          <div className="mb-3">
-            <div className="text-caption text-neutral-500 mb-1">Decision outcome for "See your offer"</div>
-            <div className="flex flex-wrap gap-1.5">
-              {Object.entries(DECISION_SCENARIOS).map(([key, s]) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setDecisionScenarioKey(key)}
-                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-full"
-                >
-                  <Chip tone={key === decisionScenarioKey ? "brand" : "neutral"}>{s.label}</Chip>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-caption text-neutral-500 mb-1">Existing advance state</div>
-            <div className="flex flex-wrap gap-1.5">
-              {Object.entries(REPAYMENT_SCENARIOS).map(([key, s]) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setRepaymentScenarioKey(key)}
-                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-full"
-                >
-                  <Chip tone={key === repaymentScenarioKey ? "brand" : "neutral"}>{s.label}</Chip>
-                </button>
-              ))}
-            </div>
-          </div>
-        </Panel>
       </main>
     </>
   );
