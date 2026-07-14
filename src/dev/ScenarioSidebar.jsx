@@ -53,7 +53,7 @@ export default function ScenarioSidebar() {
 
       <div>
         <div className="text-caption text-neutral-500 mb-1.5">Existing advance state (Home banner)</div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-col items-start gap-1.5">
           {Object.entries(REPAYMENT_SCENARIOS).map(([key, s]) => (
             <button
               key={key}
