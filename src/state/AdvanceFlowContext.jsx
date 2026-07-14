@@ -35,6 +35,14 @@ export function AdvanceFlowProvider({ children }) {
     setAutoDebitConsent(false);
     push("offer");
   }
+  function selectDecisionScenario(key) {
+    // Home shows either the existing-advance banner OR the "See your
+    // offer" CTA, never both — so leaving a stale existing-advance state
+    // selected would hide the CTA a reviewer just asked to test. Picking a
+    // decision outcome always clears it back to "no active advance".
+    setDecisionScenarioKey(key);
+    setRepaymentScenarioKey("none");
+  }
   function notify(message, variant = "info") {
     clearTimeout(toastTimer.current);
     setToast({ open: true, message, variant });
@@ -67,6 +75,7 @@ export function AdvanceFlowProvider({ children }) {
   const value = {
     decisionScenarioKey,
     setDecisionScenarioKey,
+    selectDecisionScenario,
     repaymentScenarioKey,
     setRepaymentScenarioKey,
     scenario,
