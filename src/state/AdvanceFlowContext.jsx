@@ -24,11 +24,14 @@ export function AdvanceFlowProvider({ children }) {
   function pop() {
     setStack((s) => (s.length > 1 ? s.slice(0, -1) : s));
   }
-  function resetToHome() {
+  function resetFlowState() {
     setStack(["home"]);
     setChosenTier(null);
     setAutoDebitConsent(false);
     setAccepting(false);
+  }
+  function resetToHome() {
+    resetFlowState();
   }
   function startApplication() {
     setChosenTier(null);
@@ -40,8 +43,18 @@ export function AdvanceFlowProvider({ children }) {
     // offer" CTA, never both — so leaving a stale existing-advance state
     // selected would hide the CTA a reviewer just asked to test. Picking a
     // decision outcome always clears it back to "no active advance".
+    //
+    // Also resets navigation back to Home: without this, picking a new
+    // scenario while already mid-flow (e.g. on the "Your offer" screen)
+    // left the reviewer stranded on that screen showing stale state
+    // instead of restarting from the natural entry point.
     setDecisionScenarioKey(key);
     setRepaymentScenarioKey("none");
+    resetFlowState();
+  }
+  function selectRepaymentScenario(key) {
+    setRepaymentScenarioKey(key);
+    resetFlowState();
   }
   function notify(message, variant = "info") {
     clearTimeout(toastTimer.current);
@@ -78,6 +91,7 @@ export function AdvanceFlowProvider({ children }) {
     selectDecisionScenario,
     repaymentScenarioKey,
     setRepaymentScenarioKey,
+    selectRepaymentScenario,
     scenario,
     screen,
     push,

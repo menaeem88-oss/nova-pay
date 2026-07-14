@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAdvanceFlow } from "../state/AdvanceFlowContext.jsx";
 import { DECISION_SCENARIOS, REPAYMENT_SCENARIOS } from "../data/scenarios.js";
 
@@ -12,8 +13,9 @@ import { DECISION_SCENARIOS, REPAYMENT_SCENARIOS } from "../data/scenarios.js";
  * as an external control surface, not a screen a NovaPay user would ever see.
  *
  * Sized to match the phone frame's height (780px) so the two panels read as
- * one reviewing surface, with full-width option rows (not small pills) for
- * easier scanning/clicking than the original chip grid.
+ * one reviewing surface. The two option groups are single-open accordions
+ * (picking one section always collapses the other) to keep the panel light
+ * rather than a permanent wall of buttons.
  */
 function OptionRow({ label, selected, onClick }) {
   return (
@@ -39,13 +41,50 @@ function OptionRow({ label, selected, onClick }) {
   );
 }
 
+function AccordionSection({ id, title, isOpen, onToggle, children }) {
+  return (
+    <div className="border-b border-divider last:border-b-0">
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls={`${id}-panel`}
+        id={`${id}-header`}
+        onClick={onToggle}
+        className="w-full flex items-center justify-between gap-2 py-2.5 text-caption text-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-sm"
+      >
+        <span>{title}</span>
+        <span
+          aria-hidden="true"
+          className={`transition-transform duration-200 motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
+        >
+          ▾
+        </span>
+      </button>
+      <div
+        role="region"
+        id={`${id}-panel`}
+        aria-labelledby={`${id}-header`}
+        className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col gap-1.5 pb-3">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ScenarioSidebar() {
   const {
     decisionScenarioKey,
     selectDecisionScenario,
     repaymentScenarioKey,
-    setRepaymentScenarioKey,
+    selectRepaymentScenario,
   } = useAdvanceFlow();
+
+  const [openSection, setOpenSection] = useState("decision");
 
   return (
     <aside
@@ -58,37 +97,41 @@ export default function ScenarioSidebar() {
           Reviewer controls
         </span>
       </div>
-      <p className="text-caption text-neutral-500 mb-3">
+      <p className="text-caption text-neutral-500 mb-1">
         Not part of NovaPay's UI — drives the mock decisioning so every path is reachable without a backend.
       </p>
 
-      <div className="mb-4">
-        <div className="text-caption text-neutral-500 mb-1.5">Decision outcome for "See your offer"</div>
-        <div className="flex flex-col gap-1.5">
-          {Object.entries(DECISION_SCENARIOS).map(([key, s]) => (
-            <OptionRow
-              key={key}
-              label={s.label}
-              selected={key === decisionScenarioKey}
-              onClick={() => selectDecisionScenario(key)}
-            />
-          ))}
-        </div>
-      </div>
+      <AccordionSection
+        id="decision"
+        title='Decision outcome for "See your offer"'
+        isOpen={openSection === "decision"}
+        onToggle={() => setOpenSection("decision")}
+      >
+        {Object.entries(DECISION_SCENARIOS).map(([key, s]) => (
+          <OptionRow
+            key={key}
+            label={s.label}
+            selected={key === decisionScenarioKey}
+            onClick={() => selectDecisionScenario(key)}
+          />
+        ))}
+      </AccordionSection>
 
-      <div>
-        <div className="text-caption text-neutral-500 mb-1.5">Existing advance state (Home banner)</div>
-        <div className="flex flex-col gap-1.5">
-          {Object.entries(REPAYMENT_SCENARIOS).map(([key, s]) => (
-            <OptionRow
-              key={key}
-              label={s.label}
-              selected={key === repaymentScenarioKey}
-              onClick={() => setRepaymentScenarioKey(key)}
-            />
-          ))}
-        </div>
-      </div>
+      <AccordionSection
+        id="repayment"
+        title="Existing advance state (Home banner)"
+        isOpen={openSection === "repayment"}
+        onToggle={() => setOpenSection("repayment")}
+      >
+        {Object.entries(REPAYMENT_SCENARIOS).map(([key, s]) => (
+          <OptionRow
+            key={key}
+            label={s.label}
+            selected={key === repaymentScenarioKey}
+            onClick={() => selectRepaymentScenario(key)}
+          />
+        ))}
+      </AccordionSection>
     </aside>
   );
 }
