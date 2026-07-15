@@ -13,6 +13,12 @@ import Panel from "./Panel.jsx";
  *   screen instead of hiding in the middle.
  * - Law of Proximity / Common Region: principal+fee+total are one grouped
  *   region (the breakdown Panel); date+auto-debit are a separate region.
+ *
+ * The auto-debit note used to be a full paragraph repeating the amount,
+ * date, AND the late-payment consequence inline — heavy copy for a fact
+ * already stated in the headline above it. Trimmed to one line; the
+ * late-payment detail lives in the Terms screen's "?" FAQ sheet instead
+ * (progressive disclosure, not deleted).
  */
 export default function TermsDisclosureCard({ principal, fee, total, dueDateLabel, haircutNote = null, children }) {
   return (
@@ -39,9 +45,7 @@ export default function TermsDisclosureCard({ principal, fee, total, dueDateLabe
 
       <Panel className="bg-neutral-50">
         <p className="text-body text-neutral-700">
-          We'll pull <span className="font-semibold text-neutral-900">Rs {new Intl.NumberFormat("en-PK").format(total)}</span> automatically
-          from your NovaPay balance on <span className="font-semibold text-neutral-900">{dueDateLabel}</span>. If your balance is short that day, we'll mark
-          the advance late and let you know what happens next — no surprise charges.
+          Auto-debits from your NovaPay balance on <span className="font-semibold text-neutral-900">{dueDateLabel}</span>.
         </p>
         {children}
       </Panel>

@@ -29,7 +29,7 @@ This project submits the **Code Connect–style mapping** option from the brief 
 | `ListRow` | Divider → `divider-strong` token | Off-token raw hex. |
 | `TextField` | Focus ring/border → `focus` token | Was hardcoded to `brand` inline, inconsistent with everything else. |
 | `BottomSheet` | Added `role="dialog"`/`aria-modal`, focus trap + return-focus-on-close, ESC-to-close, scroll-lock, `max-h-[85%]` + internal scroll, `shadow-sheet`/`radius.sheet` | This is the accept-decision hard moment — the highest-trust step in the product — and had none of the a11y/robustness a commit-step modal needs. |
-| `AppBar` | Added `trailing` slot; back/help buttons enlarged 36px→44px | No trailing-action slot existed (needed for the Terms screen's help sheet); back button was under the HIG tap-target minimum. |
+| `AppBar` | Added `trailing` slot; back/help buttons enlarged 36px→44px; back chevron switched from a Unicode glyph (`‹`) to a stroke-based inline SVG | No trailing-action slot existed (needed for the Terms screen's help sheet); back button was under the HIG tap-target minimum; the text glyph never read as a properly-weighted icon at any font size. |
 | `TierStepper` (new) | — | Renders only the tiers up to the offered limit — anything above it isn't shown at all (not even disabled), since an unselectable option is still a distraction (Hick's Law / NN/g minimalism). Prevents the over-limit hard moment at input rather than rejecting it after submit. Selected-state styling (tinted `brand-50`, not solid `bg-brand`) is deliberately distinct from the primary Button's fill, so selection and action don't read as the same control. |
 | `CostBreakdownRow` (new) | — | Chunks the cost into labeled principal/fee/total lines (Miller's Law) instead of one undifferentiated number. |
 | `StatusBanner` (new) | — | The single most-reused new component: decline reason, haircut notice, freelance-ineligible message, and (via `ReminderBanner`) late/default all use it. Tone + icon + text label together — never color alone. |
@@ -41,7 +41,7 @@ This project submits the **Code Connect–style mapping** option from the brief 
 
 ## What's flagged but *not* fixed (named per the brief's "flag what's wrong/missing")
 
-- **Icon language is glyph-only and LTR** (`‹`, `↑`, `↓`, `✓`, `!`, `i`) — fragile, not localisation-friendly. A PK-market wallet will eventually need Urdu/RTL; this should move to a direction-aware icon set. Out of scope for this pass (restraint).
+- **Icon language is mostly glyph-only and LTR** (`↑`, `↓`, `✓`, `!`, `i` — the back chevron above was moved to an inline SVG for legibility, but is still LTR-only) — fragile, not localisation-friendly. A PK-market wallet will eventually need Urdu/RTL; the remaining text glyphs should also move to a direction-aware icon set. Out of scope for this pass (restraint).
 - **No dark mode** — token ramps (50–900 on every semantic color) are structured to support it, but no dark theme was authored.
 - **`TextField` has no error state** — never used in this build (amount entry uses fixed tiers, not free text), so it wasn't exercised; if a free-text field is added later (e.g. custom amount), it needs an error/invalid variant.
 

@@ -42,7 +42,7 @@ export default function Offer() {
         scrolls independently beneath it — never scrolls away with content.
       */}
       {showStepper ? (
-        <div className="h-[76px] px-4 flex items-center border-b border-divider bg-white shrink-0">
+        <div className="h-[76px] px-4 flex items-center bg-white shrink-0">
           <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={0} />
         </div>
       ) : null}

@@ -1,4 +1,4 @@
-import { AppBar, Card, Panel, Button, CostBreakdownRow, ReminderBanner } from "../novakit";
+import { AppBar, Panel, AmountText, Button, ReminderBanner } from "../novakit";
 import { useAdvanceFlow } from "../state/AdvanceFlowContext.jsx";
 
 export default function Repayment() {
@@ -13,23 +13,24 @@ export default function Repayment() {
       <main className="p-4 space-y-4 h-[724px] overflow-y-auto">
         <ReminderBanner status={status} daysLate={daysLate} dueDateLabel={dueDateLabel} amount={amount} />
 
+        {/*
+          One card, one clear typographic hierarchy — was a Panel (amount +
+          date rows) sitting directly above a separate Card repeating the
+          same idea in prose. Merged: caption label -> heading amount ->
+          secondary date line -> a divider -> tertiary/caption explanation.
+        */}
         <Panel>
-          <CostBreakdownRow label="Total to repay" amount={amount} emphasis />
-          <div className="flex items-center justify-between py-1.5">
-            <span className="text-body text-neutral-500">
-              {status === "on_time" ? "Repaid on" : "Repayment date"}
-            </span>
-            <span className="text-body text-neutral-900 font-semibold">{dueDateLabel}</span>
+          <div className="text-caption text-neutral-500 uppercase tracking-wide mb-1">Total to repay</div>
+          <AmountText amount={amount} size="title" />
+          <div className="text-body text-neutral-600 mt-1">
+            {status === "on_time" ? "Repaid on" : "Due"} {dueDateLabel}
           </div>
-        </Panel>
-
-        <Card>
-          <p className="text-body text-neutral-700">
+          <p className="text-caption text-neutral-500 mt-3 pt-3 border-t border-divider">
             {status === "on_time"
-              ? "This advance is fully settled — nothing else to do."
-              : "Repayment is pulled automatically from your NovaPay balance — you don't need to do anything manually unless you'd like to add funds ahead of time."}
+              ? "Fully settled — nothing else to do."
+              : "Auto-debits from your NovaPay balance — no action needed unless you'd like to add funds ahead of time."}
           </p>
-        </Card>
+        </Panel>
 
         {severe ? (
           <Button

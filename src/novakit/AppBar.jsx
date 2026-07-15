@@ -6,16 +6,14 @@
  * - no trailing-action slot -> added `trailing` (e.g. a "?" help/terms
  *   button on the disclosure screen).
  * - back button was 36x36px, under the HIG 44x44pt minimum -> 44x44px.
- * - the back chevron glyph rendered at the inherited body font size (~16px,
- *   regular weight), so it looked thin/undersized inside its own 44x44pt
- *   tap target — iOS's back chevron reads as a clearly legible, bolder
- *   mark. Bumped to `text-title` (20px) + `font-bold`; tap target unchanged.
- * - back affordance was a bare glyph ('‹') with no localisation story ->
- *   kept the glyph (system default, per "use the system's defaults") but
- *   gave it a proper aria-label and flagged LTR-only in docs/DESIGN_SYSTEM.md:
- *   a PK-market wallet will eventually need Urdu/RTL, at which point this
- *   glyph and the icon language across the kit (↑ ↓ ‹ ✓) should move to a
- *   direction-aware icon set. Not fixed here — out of scope for restraint.
+ * - the back chevron was a Unicode glyph ('‹'). Even bumped to a larger,
+ *   bolder font size it still read as thin/undersized — a single text
+ *   character doesn't have a consistent stroke weight the way an icon
+ *   does. Replaced with a stroke-based inline SVG chevron sized/weighted
+ *   to match iOS HIG's back-chevron proportions; tap target unchanged
+ *   (44x44pt). Still LTR-only — a PK-market wallet will eventually need
+ *   an RTL-aware mirror of this icon; flagged in docs/DESIGN_SYSTEM.md,
+ *   not fixed here — out of scope for restraint.
  */
 export default function AppBar({ title, onBack = null, trailing = null }) {
   return (
@@ -26,7 +24,19 @@ export default function AppBar({ title, onBack = null, trailing = null }) {
           aria-label="Back"
           className="h-11 w-11 -ml-2 flex items-center justify-center rounded-full text-neutral-700 active:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         >
-          <span aria-hidden="true" className="text-title font-bold leading-none">‹</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
         </button>
       ) : null}
       <h1 className="text-title font-semibold text-neutral-900 flex-1 truncate">{title}</h1>

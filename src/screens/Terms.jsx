@@ -61,7 +61,7 @@ export default function Terms() {
         the wizard's progress is always visible and the rest of the screen
         scrolls independently beneath it — consistent with the Offer screen.
       */}
-      <div className="h-[76px] px-4 flex items-center border-b border-divider bg-white shrink-0">
+      <div className="h-[76px] px-4 flex items-center bg-white shrink-0">
         <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={1} />
       </div>
 
@@ -73,10 +73,21 @@ export default function Terms() {
           dueDateLabel={DUE_DATE_LABEL}
           haircutNote={
             isHaircut ? (
-              <StatusBanner tone="warning" label="Amount adjusted">
-                You applied for Rs {new Intl.NumberFormat("en-PK").format(chosenTier)}. Based on today's checks, we can offer{" "}
-                Rs {new Intl.NumberFormat("en-PK").format(disbursedAmount)} instead — the numbers below already reflect this. You're
-                free to go back and choose a different amount, or not to accept, with no penalty either way.
+              <StatusBanner
+                tone="warning"
+                label="Amount adjusted"
+                action={
+                  <button
+                    type="button"
+                    onClick={() => setHelpOpen(true)}
+                    className="text-body font-semibold text-warning-800 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-sm"
+                  >
+                    Why?
+                  </button>
+                }
+              >
+                We can offer Rs {new Intl.NumberFormat("en-PK").format(disbursedAmount)} instead of the Rs{" "}
+                {new Intl.NumberFormat("en-PK").format(chosenTier)} you applied for.
               </StatusBanner>
             ) : null
           }
@@ -125,6 +136,15 @@ export default function Terms() {
 
       <BottomSheet open={helpOpen} onClose={() => setHelpOpen(false)} title="About this offer">
         <div className="space-y-3 pb-4">
+          {isHaircut ? (
+            <div>
+              <div className="text-body font-semibold text-neutral-900">Why was my amount adjusted?</div>
+              <p className="text-body text-neutral-700 mt-0.5">
+                Based on today's risk checks, we couldn't offer the full amount you applied for. This doesn't affect your credit
+                standing, and you're free to accept the adjusted amount or go back and choose a smaller one — no penalty either way.
+              </p>
+            </div>
+          ) : null}
           <div>
             <div className="text-body font-semibold text-neutral-900">Why is there a fee?</div>
             <p className="text-body text-neutral-700 mt-0.5">
