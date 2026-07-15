@@ -38,6 +38,7 @@ This project submits the **Code Connect–style mapping** option from the brief 
 | `ProgressStepper` (new) | — | Amount → Review → Confirm, honest progress without manufactured urgency. |
 | `EmptyState`, `Skeleton` (new) | — | Doherty Threshold scaffolding (loading state on Offer) and a documented empty-state pattern for future screens. |
 | `Chip` (new) | — | Status pill, used for the scenario switcher and available for future list-row status tags. |
+| `InfoSnippet` (new) | — | Low-emphasis note with a grayed-out leading info icon — for supplementary facts (auto-debit note, decline reassurance note) that aren't a status/alert and shouldn't compete visually with `StatusBanner`'s toned callouts. |
 
 ## What's flagged but *not* fixed (named per the brief's "flag what's wrong/missing")
 
@@ -59,3 +60,4 @@ This project submits the **Code Connect–style mapping** option from the brief 
 | Primary/secondary action | `src/novakit/Button.jsx` | `variant, size, disabled, loading` |
 | Money display | `src/novakit/AmountText.jsx` | `amount, size, tone` |
 | Status pill | `src/novakit/Chip.jsx` | `tone, children` |
+| Low-emphasis info note | `src/novakit/InfoSnippet.jsx` | `children` |

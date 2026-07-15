@@ -1,6 +1,7 @@
 import AmountText from "./AmountText.jsx";
 import CostBreakdownRow from "./CostBreakdownRow.jsx";
 import Panel from "./Panel.jsx";
+import InfoSnippet from "./InfoSnippet.jsx";
 
 /**
  * TermsDisclosureCard — NovaKit Lite (new)
@@ -16,13 +17,13 @@ import Panel from "./Panel.jsx";
  *
  * The auto-debit note used to be a full paragraph repeating the amount,
  * date, AND the late-payment consequence inline — heavy copy for a fact
- * already stated in the headline above it. Trimmed to one line; the
- * late-payment detail lives in the Terms screen's "?" FAQ sheet instead
- * (progressive disclosure, not deleted).
+ * already stated in the headline above it. Trimmed to one line and moved
+ * into `InfoSnippet` (a neutral, icon-led note) instead of a plain Panel,
+ * so it reads as supplementary info rather than another same-weight card.
  */
 export default function TermsDisclosureCard({ principal, fee, total, dueDateLabel, haircutNote = null, children }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div className="rounded-lg border border-brand-100 bg-brand-50 p-4">
         <div className="text-caption font-semibold text-brand-700 uppercase tracking-wide mb-1">
           Total to repay
@@ -43,12 +44,10 @@ export default function TermsDisclosureCard({ principal, fee, total, dueDateLabe
         </div>
       </Panel>
 
-      <Panel className="bg-neutral-50">
-        <p className="text-body text-neutral-700">
-          Auto-debits from your NovaPay balance on <span className="font-semibold text-neutral-900">{dueDateLabel}</span>.
-        </p>
+      <InfoSnippet>
+        Auto-debits from your NovaPay balance on <span className="font-semibold text-neutral-900">{dueDateLabel}</span>.
         {children}
-      </Panel>
+      </InfoSnippet>
     </div>
   );
 }

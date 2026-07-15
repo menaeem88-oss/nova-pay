@@ -56,7 +56,7 @@ export default function Terms() {
           </button>
         }
       />
-      <main className="p-4 space-y-4 pb-28 h-[724px] overflow-y-auto">
+      <main className="p-4 space-y-xl pb-28 h-[724px] overflow-y-auto">
         {/*
           `sticky` (not pulled out of the scroll area) so it keeps its
           original in-flow spacing exactly as before, just pinned once
@@ -74,21 +74,10 @@ export default function Terms() {
           dueDateLabel={DUE_DATE_LABEL}
           haircutNote={
             isHaircut ? (
-              <StatusBanner
-                tone="warning"
-                label="Amount adjusted"
-                action={
-                  <button
-                    type="button"
-                    onClick={() => setHelpOpen(true)}
-                    className="text-body font-semibold text-warning-800 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-sm"
-                  >
-                    Why?
-                  </button>
-                }
-              >
+              <StatusBanner tone="warning" label="Amount adjusted">
                 We can offer Rs {new Intl.NumberFormat("en-PK").format(disbursedAmount)} instead of the Rs{" "}
-                {new Intl.NumberFormat("en-PK").format(chosenTier)} you applied for.
+                {new Intl.NumberFormat("en-PK").format(chosenTier)} you applied for, based on today's risk checks — no penalty
+                either way.
               </StatusBanner>
             ) : null
           }
@@ -137,15 +126,6 @@ export default function Terms() {
 
       <BottomSheet open={helpOpen} onClose={() => setHelpOpen(false)} title="About this offer">
         <div className="space-y-3 pb-4">
-          {isHaircut ? (
-            <div>
-              <div className="text-body font-semibold text-neutral-900">Why was my amount adjusted?</div>
-              <p className="text-body text-neutral-700 mt-0.5">
-                Based on today's risk checks, we couldn't offer the full amount you applied for. This doesn't affect your credit
-                standing, and you're free to accept the adjusted amount or go back and choose a smaller one — no penalty either way.
-              </p>
-            </div>
-          ) : null}
           <div>
             <div className="text-body font-semibold text-neutral-900">Why is there a fee?</div>
             <p className="text-body text-neutral-700 mt-0.5">

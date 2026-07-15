@@ -8,7 +8,7 @@ export default function Disbursed() {
   return (
     <>
       <AppBar title="You're all set" />
-      <main className="p-4 space-y-4 h-[724px] overflow-y-auto">
+      <main className="p-4 space-y-xl h-[724px] overflow-y-auto">
         <StatusBanner tone="success" label="Disbursed" title={`Rs ${new Intl.NumberFormat("en-PK").format(disbursedAmount)} sent to your NovaPay balance`}>
           {isHaircut
             ? "This reflects the adjusted amount you reviewed and accepted."

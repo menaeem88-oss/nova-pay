@@ -10,7 +10,7 @@ export default function Repayment() {
   return (
     <>
       <AppBar title="Repayment" onBack={pop} />
-      <main className="p-4 space-y-4 h-[724px] overflow-y-auto">
+      <main className="p-4 space-y-xl h-[724px] overflow-y-auto">
         <ReminderBanner status={status} daysLate={daysLate} dueDateLabel={dueDateLabel} amount={amount} />
 
         {/*

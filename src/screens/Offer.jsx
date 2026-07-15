@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AppBar, Card, Button, Skeleton, StatusBanner, TierStepper, ProgressStepper } from "../novakit";
+import { AppBar, Card, Button, Skeleton, StatusBanner, TierStepper, ProgressStepper, InfoSnippet } from "../novakit";
 import { useAdvanceFlow } from "../state/AdvanceFlowContext.jsx";
 import { DECLINE_COPY } from "../data/scenarios.js";
 import { TIERS } from "../data/productRules.js";
@@ -34,7 +34,7 @@ export default function Offer() {
     <>
       <AppBar title="Your offer" onBack={pop} />
 
-      <main className="p-4 space-y-4 h-[724px] overflow-y-auto">
+      <main className="p-4 space-y-xl h-[724px] overflow-y-auto">
         {loading ? (
           <Card className="space-y-3" aria-busy="true" aria-live="polite">
             <span className="sr-only">Checking your eligibility…</span>
@@ -92,11 +92,9 @@ function DeclinedOffer({ scenario, resetToHome, notify }) {
       <StatusBanner tone="warning" label={copy.kicker} title={copy.title}>
         {copy.body}
       </StatusBanner>
-      <Card>
-        <p className="text-body text-neutral-700">
-          This doesn't affect your NovaPay account or your ability to send and receive money as normal.
-        </p>
-      </Card>
+      <InfoSnippet>
+        This doesn't affect your NovaPay account or your ability to send and receive money as normal.
+      </InfoSnippet>
       <div className="space-y-2">
         {copy.actionLabel ? (
           <Button

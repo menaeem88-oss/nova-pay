@@ -18,3 +18,4 @@ export { default as ProgressStepper } from "./ProgressStepper.jsx";
 export { default as EmptyState } from "./EmptyState.jsx";
 export { default as Skeleton } from "./Skeleton.jsx";
 export { default as Chip } from "./Chip.jsx";
+export { default as InfoSnippet } from "./InfoSnippet.jsx";
