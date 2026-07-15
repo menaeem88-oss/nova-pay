@@ -42,8 +42,8 @@ Edge cases explicitly designed for: offer with a haircut disclosed *before* acce
 **(a) Terms / total-cost disclosure**
 - Headline: *"Total to repay — Rs 15,450 on 4 Aug"*
 - Breakdown: *"Amount disbursed · Fee (3% of disbursed, once) · Total to repay"*
-- Auto-debit note: *"We'll pull Rs 15,450 automatically from your NovaPay balance on 4 Aug. If your balance is short that day, we'll mark the advance late and let you know what happens next — no surprise charges."*
-- Haircut re-disclosure: *"You applied for Rs 15,000. Based on today's checks, we can offer Rs 9,000 instead — the numbers below already reflect this. You're free to go back and choose a different amount, or not to accept, with no penalty either way."*
+- Auto-debit note (InfoSnippet, one line — the late-payment detail lives in the "?" FAQ sheet): *"Auto-debits from your NovaPay balance on 4 Aug."*
+- Haircut re-disclosure (one line, self-contained): *"We can offer Rs 9,000 instead of the Rs 15,000 you applied for, based on today's risk checks — no penalty either way."*
 
 **(b) Accept decision**
 - Recap: *"Rs 15,450 on 4 Aug — that's the full amount you'll owe, pulled automatically."*
@@ -63,7 +63,7 @@ Every decline/late/default string names the real, concrete cause and a real next
 ## Law/heuristic tags on key decisions
 
 - Total + date dominant, appearing first (headline) and last (auto-debit note) → **Von Restorff + Serial Position** (`TermsDisclosureCard`).
-- Principal/fee/total grouped in one Panel; date/auto-debit grouped in a separate Panel → **Law of Proximity / Common Region**.
+- Principal/fee/total grouped in one Panel; the date/auto-debit fact set apart in its own InfoSnippet → **Law of Proximity / Common Region**.
 - Three fixed tiers instead of a free-amount field → **Hick's Law** + **NN/g Error Prevention** (over-limit can't be requested).
 - Cost broken into labeled rows instead of one number → **Miller's Law / cognitive chunking**.
 - Explicit consent checkbox, unchecked by default → **Postel's Law** (strict about what the user commits to) + ethical floor (never bury auto-debit).

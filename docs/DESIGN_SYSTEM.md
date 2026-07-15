@@ -24,7 +24,7 @@ This project submits the **Code Connect–style mapping** option from the brief 
 |---|---|---|
 | `Button` | Secondary text `neutral-500`→`neutral-700` (was ~4:1, failed AA-adjacent, read as disabled); disabled text `neutral-300`→`neutral-400` (was ~1.4:1, invisible); added `focus-visible` ring; added `loading` state with spinner + `aria-busy` | AA contrast + the async accept/disburse call needed a pending state (Doherty). |
 | `Toast` | Hardcoded `bg-success` → `variant` prop (`success`/`error`/`info`); added `role="status"`/`aria-live` | A lending app needs error/info toasts, not just success. |
-| `AmountText` | Added `tone` (default/positive/negative/muted) and wired up `caption` size (existed in the type scale but wasn't mapped here) | Money-in vs. money-out looked identical; the type scale had an unused size. |
+| `AmountText` | Added `tone` (default/positive/negative/muted/inverse) and wired up `caption` size (existed in the type scale but wasn't mapped here) | Money-in vs. money-out looked identical; the type scale had an unused size; `inverse` (white) supports amounts on dark surfaces like the Home balance card. |
 | `Card` / `Panel` | Deliberately differentiated: `Card` = elevated (shadow), `Panel` = flush (no shadow, for nesting inside another surface). Both routed through the new `divider` token instead of raw hex/`neutral-300`. | They were near-duplicates in the starter; collapsing them would have lost a real distinction (elevation) that the product needs (e.g. a Panel nested inside a BottomSheet shouldn't float a second shadow). |
 | `ListRow` | Divider → `divider-strong` token | Off-token raw hex. |
 | `TextField` | Focus ring/border → `focus` token | Was hardcoded to `brand` inline, inconsistent with everything else. |
@@ -37,7 +37,7 @@ This project submits the **Code Connect–style mapping** option from the brief 
 | `ReminderBanner` (new) | — | Repayment status at a glance (upcoming/due/late/default/on_time), built on `StatusBanner` so the visual language stays one system. |
 | `ProgressStepper` (new) | — | Amount → Review → Confirm, honest progress without manufactured urgency. |
 | `EmptyState`, `Skeleton` (new) | — | Doherty Threshold scaffolding (loading state on Offer) and a documented empty-state pattern for future screens. |
-| `Chip` (new) | — | Status pill, used for the scenario switcher and available for future list-row status tags. |
+| `Chip` (new) | — | Status pill. (Originally used by the reviewer scenario switcher; that panel later moved to full-width option rows, so Chip is currently library surface for future list-row status tags.) |
 | `InfoSnippet` (new) | — | Low-emphasis note with a grayed-out leading info icon — for supplementary facts (auto-debit note, decline reassurance note) that aren't a status/alert and shouldn't compete visually with `StatusBanner`'s toned callouts. |
 
 ## What's flagged but *not* fixed (named per the brief's "flag what's wrong/missing")
