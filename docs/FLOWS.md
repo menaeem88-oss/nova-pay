@@ -6,7 +6,7 @@
 Home
  └─ See your offer
      └─ Offer / eligibility + amount select
-         ├─ Approved → tier chips (up to limit; over-limit disabled), same screen
+         ├─ Approved → tier chips (only up to limit rendered; nothing above it shown), same screen
          │              └─ Terms / total-cost disclosure  ← MOMENT (a)
          │                  └─ Accept sheet (auto-debit consent)  ← MOMENT (b)
          │                      └─ Disbursed (+ haircut note if applicable)
@@ -20,7 +20,7 @@ Home
 ## Why some spine screens don't exist
 
 - **No separate "Amount select" screen.** Eligibility ("you're approved") and amount selection ("choose up to your limit") were originally two screens/taps for what is functionally one decision, and each screen separately explained "you may qualify" / "choose how much you need" — redundant framing copy for the same idea. Merged into one screen: the approval banner's single line now covers both facts, the tier chips render directly beneath it, and one "Continue" CTA (disabled until a tier is picked) replaces the old two-tap "Choose your amount" → "Continue" sequence. This is Hick's Law applied directly — fewer sequential decisions for one underlying choice — plus NN/g's minimalism heuristic (no restating information the user just read).
-- **No separate "over-limit" screen.** Per Context Digest assumption #4, over-limit is prevented at input (disabled tiers + inline caption in the tier selector), never a post-submit rejection. Building a dedicated over-limit *error* screen would mean the prevention failed — the right fix was to make submitting an invalid amount impossible, not to design a nice error for it.
+- **No separate "over-limit" screen.** Per Context Digest assumption #4, over-limit is prevented at input — tiers above the offered limit aren't rendered at all in the tier selector, not merely disabled — never a post-submit rejection. Building a dedicated over-limit *error* screen would mean the prevention failed — the right fix was to make submitting an invalid amount impossible, not to design a nice error for it. (An earlier version disabled+greyed-out the unavailable tiers instead of omitting them; that still left a choice on screen the user could never take, which is its own kind of distraction — see Hick's Law / NN/g minimalism.)
 - **No separate "haircut" screen.** A haircut is a different set of numbers on the *same* Terms screen (Assumption #6) — it doesn't need its own destination, only a re-disclosure banner and recomputed breakdown. A dedicated screen would add a step for no benefit and would break the Von Restorff/Serial Position composition of the disclosure screen.
 - **Declined and Offer are the same screen**, not sequential steps — a decline is a state of eligibility, not a place you arrive at *after* seeing an offer.
 
@@ -29,7 +29,7 @@ Home
 | Screen | Default | Loading | Empty | Success | Error / edge | Disabled |
 |---|---|---|---|---|---|---|
 | Home | Balance + CTA or existing-advance banner | — (static mock balance) | N/A (always has balance + activity) | — | — | — |
-| Offer + amount select | Tier chips once approved | Skeleton (~650ms, simulates eligibility check) | N/A | Approved banner + tier chosen → Continue enabled | Declined banner (3 reasons) with real next step | Tiers above limit disabled + inline caption; Continue disabled until a tier is chosen |
+| Offer + amount select | Tier chips once approved | Skeleton (~650ms, simulates eligibility check) | N/A | Approved banner + tier chosen → Continue enabled | Declined banner (3 reasons) with real next step | Tiers above limit not rendered at all (+ inline limit caption); Continue disabled until a tier is chosen |
 | Terms | Disclosure card | — | — | — | Haircut re-disclosure banner when disbursed < applied | — |
 | Accept sheet | Unchecked consent | Button `loading` during simulated accept call (~900ms) | — | Closes → Disbursed | — | Accept button disabled until consent is checked; Not-now disabled mid-accept (can't cancel a request mid-flight) |
 | Disbursed | Success banner + breakdown | — | — | — | Haircut reiterated in banner copy if applicable | — |

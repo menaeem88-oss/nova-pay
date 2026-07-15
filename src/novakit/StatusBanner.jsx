@@ -6,6 +6,10 @@
  * late/overdue alert, and the freelance-ineligible message all use this.
  * Each tone pairs a color AND an icon AND a text label — meaning is never
  * carried by color alone (WCAG 1.4.1 / NN/g).
+ *
+ * Radius was `rounded-md` (12px), inconsistent with every other card-like
+ * surface (Card, Panel) at `rounded-lg` (20px) — fixed so banners read as
+ * the same "shape family" as the surfaces they sit beside.
  */
 const TONES = {
   info: { bg: "bg-info-50", border: "border-info-200", text: "text-info-800", icon: "i", iconBg: "bg-info-600" },
@@ -17,7 +21,7 @@ const TONES = {
 export default function StatusBanner({ tone = "info", label, title, children, action = null, className = "" }) {
   const t = TONES[tone] || TONES.info;
   return (
-    <div role={tone === "danger" ? "alert" : "status"} className={`rounded-md border ${t.bg} ${t.border} p-4 ${className}`}>
+    <div role={tone === "danger" ? "alert" : "status"} className={`rounded-lg border ${t.bg} ${t.border} p-4 ${className}`}>
       <div className="flex gap-3">
         <span
           aria-hidden="true"

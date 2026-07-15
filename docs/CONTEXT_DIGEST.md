@@ -21,7 +21,7 @@ NovaPay is a *salary* advance for *salaried* users, but the schema allows `incom
 
 1. **Terms / total-cost disclosure** — the moment the user sees what the advance actually costs and when it's collected. Principal, fee, total, and repayment date must be legible together, with total-and-date visually dominant (Von Restorff), on the *same screen* as the decision to accept.
 2. **The accept decision** — the highest-trust moment in the app. Consent to auto-debit must be explicit, not implied by tapping a big button. This is where Doherty (perceived responsiveness) and Peak-End (this is a peak) matter most.
-3. **One not-good path, built deep** — I'm building **all three** of decline, over-limit, and late/default to a real standard, because they share one underlying component (`StatusBanner`) and the incremental cost of covering all three is low once the humane-copy pattern is established. Over-limit is designed as *prevention* (disabled state + inline explanation), not a post-submit rejection — the other two are true "bad news" screens designed for dignity.
+3. **One not-good path, built deep** — I'm building **all three** of decline, over-limit, and late/default to a real standard, because they share one underlying component (`StatusBanner`) and the incremental cost of covering all three is low once the humane-copy pattern is established. Over-limit is designed as *prevention* (tiers above the limit aren't rendered at all, not merely disabled, + an inline explanation of the limit), not a post-submit rejection — the other two are true "bad news" screens designed for dignity.
 
 ## Constraints
 
@@ -35,7 +35,7 @@ NovaPay is a *salary* advance for *salaried* users, but the schema allows `incom
 1. Total cost of credit **and** repayment date sit on the same screen as Accept, even though this is more numbers than a typical "one big CTA" screen — trust over conversion.
 2. Auto-debit consent is an explicit, separately-legible checkbox/switch inside the accept sheet, not implied by the primary button.
 3. `income_source: freelance` → routed to Declined (reason: `other`, surfaced humanely as "this advance isn't available for your income type yet").
-4. Over-limit is prevented at the amount-selection step (tier chips above the limit are disabled with an inline reason), never a post-submit error.
+4. Over-limit is prevented at the amount-selection step (tier chips above the limit are not rendered at all — an unselectable option is still a distraction), never a post-submit error.
 5. Haircut triggers a re-disclosure screen with recomputed numbers and a genuine, no-penalty decline option — accepting the original offer silently at a lower amount would be a dark pattern.
 6. Fee is computed as `round(disbursed * 0.03)`, always shown as its own line, never folded into "total" without a visible breakdown.
 7. Since this is a click-through prototype with no backend, I'm adding a small **scenario switcher** (approved / declined / haircut / late) so a reviewer can reach every hard moment without needing real underwriting logic. It's rendered outside the phone frame entirely, not on any product screen, so it can't be mistaken for part of the NovaPay UI.

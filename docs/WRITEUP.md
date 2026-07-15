@@ -25,7 +25,7 @@ Full change-log in `docs/DESIGN_SYSTEM.md`. Highlights: added `danger`/`warning`
 1. Total cost of credit **and** repayment date sit on the same screen as Accept, even though it's more numbers up front than a single-CTA screen would prefer — trust over conversion.
 2. Auto-debit consent is an explicit, separately-legible checkbox in the accept sheet, not implied by tapping the primary button.
 3. `income_source: freelance` routes to Declined (`other`) — this product's tenor requires a fixed salaried payday, and freelance income has no such anchor.
-4. Over-limit is prevented at the amount-selection step (disabled tiers + inline reason), never a post-submit error.
+4. Over-limit is prevented at the amount-selection step by not rendering tiers above the offered limit at all (not even disabled — an unselectable option is still visual noise), never a post-submit error.
 5. A haircut triggers re-disclosure with recomputed numbers and a genuine, no-penalty way to decline — silently accepting the original offer at a lower amount would be a dark pattern.
 6. Fee = `round(disbursed × 0.03)`, always its own line item, never folded into "total" without a visible breakdown.
 7. Since there's no backend, a small "Reviewer controls" sidebar (clearly labeled, rendered outside the phone frame entirely — not on any product screen) lets a reviewer reach every decision/repayment state without re-running real underwriting logic.

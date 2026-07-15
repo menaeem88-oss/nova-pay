@@ -38,7 +38,7 @@ export default function Home() {
           <button
             type="button"
             onClick={viewExistingRepayment}
-            className="w-full text-left rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+            className="w-full text-left rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
           >
             <ReminderBanner
               status={existing.status}

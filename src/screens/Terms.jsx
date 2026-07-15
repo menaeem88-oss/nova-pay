@@ -56,9 +56,16 @@ export default function Terms() {
           </button>
         }
       />
-      <main className="p-4 space-y-4 pb-28 h-[724px] overflow-y-auto">
+      {/*
+        Pinned above the scroll area (not `position: sticky` inside it) so
+        the wizard's progress is always visible and the rest of the screen
+        scrolls independently beneath it — consistent with the Offer screen.
+      */}
+      <div className="h-[76px] px-4 flex items-center border-b border-divider bg-white shrink-0">
         <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={1} />
+      </div>
 
+      <main className="p-4 space-y-4 pb-28 h-[648px] overflow-y-auto">
         <TermsDisclosureCard
           principal={disbursedAmount}
           fee={fee}
