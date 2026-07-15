@@ -2,20 +2,30 @@
 
 ## Flow map
 
-```
-Home
- └─ See your offer
-     └─ Offer / eligibility + amount select
-         ├─ Approved → tier chips (only up to limit rendered; nothing above it shown), same screen
-         │              └─ Terms / total-cost disclosure  ← MOMENT (a)
-         │                  └─ Accept sheet (auto-debit consent)  ← MOMENT (b)
-         │                      └─ Disbursed (+ haircut note if applicable)
-         │                          └─ Repayment (upcoming → due → late/default)  ← MOMENT (c)
-         └─ Declined → humane reason + real next step (dead end for THIS application,
-                        never a dead end for the user — always a path back)
+```mermaid
+flowchart TD
+    Home["Home"]
+    Offer["Offer — eligibility<br/>+ amount select<br/>(one screen)"]
+    Terms["Terms / total-cost<br/>disclosure — MOMENT (a)"]
+    Accept["Accept sheet —<br/>auto-debit consent<br/>MOMENT (b)"]
+    Disbursed["Disbursed<br/>(+ haircut note<br/>if applicable)"]
+    Repayment["Repayment —<br/>upcoming / due /<br/>late / default<br/>MOMENT (c)"]
+    Declined["Declined —<br/>humane reason<br/>+ next step<br/>MOMENT (c)"]
+
+    Home -->|"See your offer"| Offer
+    Offer -->|"Approved:<br/>pick tier ≤ limit"| Terms
+    Offer -->|"Declined"| Declined
+    Terms --> Accept
+    Accept --> Disbursed
+    Disbursed --> Repayment
+    Declined -->|"Back to home"| Home
+    Home -->|"Existing-advance<br/>banner"| Repayment
+
+    classDef moment stroke:#4F46E5,stroke-width:3px;
+    class Terms,Accept,Repayment,Declined moment;
 ```
 
-`Home` also has a second entry into `Repayment` directly, for a user with an *existing* advance (the reminder banner on Home), independent of a fresh application.
+The heavier-outlined nodes are the three hard moments this whole doc is organized around (also named in their labels, so the emphasis isn't color-only): (a) terms/total-cost disclosure, (b) the accept decision, and (c) the not-good paths — declined, and the late/default repayment states. Notes on the edges: only tiers up to the offered limit are rendered at amount-select (nothing above it shown, even disabled); a decline is a dead end for *this application*, never for the user — "Back to home" always exists; and Home's existing-advance banner is a second, independent entry into Repayment for a user with an active advance.
 
 ## Why some spine screens don't exist
 
