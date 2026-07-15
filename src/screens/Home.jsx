@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <AppBar title="NovaPay" />
-      <main className="p-4 space-y-xl h-[724px] overflow-y-auto">
+      <main className="p-4 pt-xl space-y-xl h-[724px] overflow-y-auto">
         {/*
           Deliberately not the shared Card component here: Card hard-codes a
           white surface, and this block needs a dark one for emphasis/hierarchy

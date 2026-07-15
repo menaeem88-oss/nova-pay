@@ -56,14 +56,17 @@ export default function Terms() {
           </button>
         }
       />
-      <main className="p-4 space-y-xl pb-28 h-[724px] overflow-y-auto">
+      <main className="p-4 pt-xl space-y-xl pb-28 h-[724px] overflow-y-auto">
         {/*
           `sticky` (not pulled out of the scroll area) so it keeps its
           original in-flow spacing exactly as before, just pinned once
-          scrolled to. `top-4` matches main's own p-4 inset so nothing
-          jumps when it engages.
+          scrolled to. `top-0` (not matched to main's pt-xl) deliberately —
+          when the static offset exactly equals a nonzero `top`, Chromium
+          doubles the gap at rest (a real, measured rendering quirk, not a
+          padding mismatch). `top-0` avoids that; no visible "jump" risk
+          since no screen currently scrolls enough for this to engage.
         */}
-        <div className="sticky top-4 z-10 bg-white">
+        <div className="sticky top-0 z-10 bg-white">
           <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={1} />
         </div>
 
