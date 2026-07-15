@@ -56,16 +56,17 @@ export default function Terms() {
           </button>
         }
       />
-      {/*
-        Pinned above the scroll area (not `position: sticky` inside it) so
-        the wizard's progress is always visible and the rest of the screen
-        scrolls independently beneath it — consistent with the Offer screen.
-      */}
-      <div className="h-[76px] px-4 flex items-center bg-white shrink-0">
-        <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={1} />
-      </div>
+      <main className="p-4 space-y-4 pb-28 h-[724px] overflow-y-auto">
+        {/*
+          `sticky` (not pulled out of the scroll area) so it keeps its
+          original in-flow spacing exactly as before, just pinned once
+          scrolled to. `top-4` matches main's own p-4 inset so nothing
+          jumps when it engages.
+        */}
+        <div className="sticky top-4 z-10 bg-white">
+          <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={1} />
+        </div>
 
-      <main className="p-4 space-y-4 pb-28 h-[648px] overflow-y-auto">
         <TermsDisclosureCard
           principal={disbursedAmount}
           fee={fee}
