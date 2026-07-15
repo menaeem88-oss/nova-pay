@@ -28,6 +28,7 @@ npm run build   # production build / sanity check
 | [`docs/HIG_CHECKLIST.md`](docs/HIG_CHECKLIST.md) | iOS HIG + WCAG AA checklist, pass/fail with fixes applied |
 | [`docs/WRITEUP.md`](docs/WRITEUP.md) | The ~2-page submission writeup (what's going on, what was built and why, success metrics, never-do list, assumptions, open questions, what I'd do differently) |
 | [`docs/AI_LOG.md`](docs/AI_LOG.md) | AI process log + one AI-generated output that was rejected and reworked |
+| [`docs/QA_REPORT.md`](docs/QA_REPORT.md) | Full QA pass: functional click-through assertions, independent math verification, regression checks, defects found and fixed |
 
 ## What's in the code
 
