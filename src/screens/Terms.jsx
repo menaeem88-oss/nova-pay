@@ -52,7 +52,7 @@ export default function Terms() {
             onClick={() => setHelpOpen(true)}
             className="h-11 w-11 -mr-2 flex items-center justify-center rounded-full text-neutral-700 active:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
           >
-            ?
+            <span aria-hidden="true" className="text-title font-bold leading-none">?</span>
           </button>
         }
       />

@@ -19,12 +19,20 @@ export default function Home() {
     <>
       <AppBar title="NovaPay" />
       <main className="p-4 space-y-4 h-[724px] overflow-y-auto">
-        <Card>
-          <div className="text-caption text-neutral-500">Available balance</div>
+        {/*
+          Deliberately not the shared Card component here: Card hard-codes a
+          white surface, and this block needs a dark one for emphasis/hierarchy
+          against the rest of the (light) Home screen. Matches Card's own
+          radius/shadow/spacing tokens (rounded-lg, shadow-card, p-4) so it
+          still reads as the same design system, just a dark variant — built
+          entirely from color tokens (neutral-900/neutral-300/white), no raw hex.
+        */}
+        <div className="bg-neutral-900 rounded-lg shadow-card p-4">
+          <div className="text-caption text-neutral-300">Available balance</div>
           <div className="mt-1">
-            <AmountText amount={4250} size="display" />
+            <AmountText amount={4250} size="display" tone="inverse" />
           </div>
-        </Card>
+        </div>
 
         {hasExistingAdvance ? (
           <button

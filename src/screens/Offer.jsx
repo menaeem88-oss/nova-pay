@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
-import { AppBar, Card, Button, Skeleton, StatusBanner } from "../novakit";
+import { AppBar, Card, Button, Skeleton, StatusBanner, TierStepper, ProgressStepper } from "../novakit";
 import { useAdvanceFlow } from "../state/AdvanceFlowContext.jsx";
 import { DECLINE_COPY } from "../data/scenarios.js";
+import { TIERS } from "../data/productRules.js";
 
 /**
- * Offer / eligibility — spine step 1. Approved and declined are two states
- * of the SAME screen (not separate destinations): a decline here is a real
- * dead end for this application, so there's nowhere further to route to.
+ * Offer / eligibility + amount selection — spine step 1. Approved and
+ * declined are two states of the SAME screen (not separate destinations):
+ * a decline here is a real dead end for this application, so there's
+ * nowhere further to route to.
+ *
+ * Amount selection (formerly its own "Choose your amount" screen) is
+ * merged in here for the approved case. The two screens were one decision
+ * split across two taps, with redundant framing copy on each ("you may
+ * qualify" / "choose how much you need" said twice, once per screen).
+ * Combining them removes an extra tap (Hick's Law: fewer sequential
+ * decisions for what is functionally one choice) and the duplicate copy
+ * (NN/g minimalism/no-redundant-information heuristic) without losing any
+ * information the borrower needs — the approval banner's one line now
+ * covers both "you're approved" and "choose up to your limit."
  */
 export default function Offer() {
-  const { scenario, push, pop, resetToHome, notify } = useAdvanceFlow();
+  const { scenario, chosenTier, setChosenTier, push, pop, resetToHome, notify } = useAdvanceFlow();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,16 +43,22 @@ export default function Offer() {
           </Card>
         ) : scenario.decision === "approved" ? (
           <>
-            <StatusBanner tone="success" label="Approved" title={`You're approved for up to Rs ${new Intl.NumberFormat("en-PK").format(scenario.limit)}`}>
-              Choose how much you need — you can take any amount up to your limit.
+            <StatusBanner
+              tone="success"
+              label="Approved"
+              title={`You're approved for up to Rs ${new Intl.NumberFormat("en-PK").format(scenario.limit)}`}
+            >
+              Choose how much you need below — you'll see the exact cost and repayment date before accepting anything.
             </StatusBanner>
+
+            <ProgressStepper steps={["Amount", "Review", "Confirm"]} current={0} />
+
             <Card>
-              <p className="text-body text-neutral-700">
-                This offer is a short-term salary advance. You'll see the exact cost and repayment date before you accept anything.
-              </p>
+              <TierStepper tiers={TIERS} limit={scenario.limit} value={chosenTier} onChange={setChosenTier} />
             </Card>
-            <Button size="lg" onClick={() => push("amount")}>
-              Choose your amount
+
+            <Button size="lg" disabled={!chosenTier} onClick={() => push("terms")}>
+              Continue
             </Button>
           </>
         ) : (

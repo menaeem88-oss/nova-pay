@@ -143,6 +143,11 @@ export default {
         // New: a distinct radius for full-height sheets vs. resting cards,
         // per the HIG note that sheets should read as a different surface.
         sheet: "24px",
+        // New: the device-chrome radius for the phone frame itself — was a
+        // raw `rounded-[28px]` arbitrary value in App.jsx, the only radius
+        // in the app not expressed as a token. Named distinctly from `sheet`
+        // (24px) since it's a different surface (viewport bezel, not content).
+        frame: "28px",
       },
 
       // --- Elevation (new scale) ------------------------------------------

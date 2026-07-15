@@ -39,7 +39,7 @@ src/
     TierStepper, CostBreakdownRow, StatusBanner,
     TermsDisclosureCard, ReminderBanner, ProgressStepper,
     EmptyState, Skeleton, Chip              # new
-  screens/                 # Home, Offer, AmountSelect, Terms, Disbursed, Repayment
+  screens/                 # Home, Offer (incl. amount select), Terms, Disbursed, Repayment
   state/AdvanceFlowContext.jsx   # navigation + application state (no backend — mocked)
   data/productRules.js, scenarios.js        # fee/haircut math + mock decision scenarios
   dev/ScenarioSidebar.jsx  # reviewer-only controls, rendered outside the phone frame

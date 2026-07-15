@@ -18,6 +18,7 @@ const TONES = {
   positive: "text-success-700",
   negative: "text-neutral-900", // debit/repayment: emphasized, not alarming (red is reserved for danger states)
   muted: "text-neutral-500",
+  inverse: "text-white", // for amounts on a dark surface, e.g. the Home balance card
 };
 
 export default function AmountText({

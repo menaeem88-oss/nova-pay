@@ -3,7 +3,6 @@ import { AdvanceFlowProvider, useAdvanceFlow } from "./state/AdvanceFlowContext.
 import ScenarioSidebar from "./dev/ScenarioSidebar.jsx";
 import Home from "./screens/Home.jsx";
 import Offer from "./screens/Offer.jsx";
-import AmountSelect from "./screens/AmountSelect.jsx";
 import Terms from "./screens/Terms.jsx";
 import Disbursed from "./screens/Disbursed.jsx";
 import Repayment from "./screens/Repayment.jsx";
@@ -11,7 +10,6 @@ import Repayment from "./screens/Repayment.jsx";
 const SCREENS = {
   home: Home,
   offer: Offer,
-  amount: AmountSelect,
   terms: Terms,
   disbursed: Disbursed,
   repayment: Repayment,
@@ -30,8 +28,8 @@ function FlowRouter() {
 
 /**
  * NovaPay salary-advance prototype.
- * Spine: Home -> Offer (approved|declined) -> Amount select (over-limit
- * blocked) -> Terms/total-cost disclosure -> Accept (modal, auto-debit
+ * Spine: Home -> Offer (approved w/ amount select, over-limit blocked |
+ * declined) -> Terms/total-cost disclosure -> Accept (modal, auto-debit
  * consent) -> Disbursed (+haircut variant) -> Repayment (upcoming/due/
  * late/default). See docs/FLOWS.md for the full state inventory.
  *
@@ -47,7 +45,7 @@ export default function App() {
         <ScenarioSidebar />
 
         {/* Mobile frame */}
-        <div className="relative w-[390px] h-[780px] bg-white rounded-[28px] shadow-xl overflow-hidden border border-neutral-300">
+        <div className="relative w-[390px] h-[780px] bg-white rounded-frame shadow-xl overflow-hidden border border-neutral-300">
           <FlowRouter />
         </div>
       </div>

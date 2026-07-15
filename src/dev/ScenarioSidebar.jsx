@@ -55,7 +55,9 @@ function AccordionSection({ id, title, isOpen, onToggle, children }) {
         <span>{title}</span>
         <span
           aria-hidden="true"
-          className={`transition-transform duration-200 motion-reduce:transition-none ${isOpen ? "rotate-180" : ""}`}
+          className={`text-title font-bold leading-none text-neutral-700 shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
+            isOpen ? "rotate-180" : ""
+          }`}
         >
           ▾
         </span>
